@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-aws-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.7
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: .github/actions/exec-terraform
+      - name: Deploy AWS - Terraform
+        uses: ./.github/actions/exec-terraform
+        with:
+          terraform-cmd: 'init'
+          terraform-args: ''
+          terrarform-init-args: '-input=false'

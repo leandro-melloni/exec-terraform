@@ -1,0 +1,19 @@
+name: 'Deploy AWS'
+description: 'Deploy AWS'
+inputs:
+  terraform-cmd:
+    required: false
+    default: 'plan'
+    description: 'The Terraform command to run (e.g. "plan", "apply", "destroy", etc.)'
+  terraform-args:
+    required: false
+    default: '-var-file=terraform.tfvars'
+    description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
+  terrarform-init-args:
+    required: false
+    default: '-input=false'
+    description: 'The Terraform arguments to pass to the init command (e.g. "-input=false")'
+  
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
