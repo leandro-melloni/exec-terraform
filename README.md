@@ -17,7 +17,7 @@ on:
       - main
 
 jobs:
-  deploy-aws:
+  terraform-exec:
     runs-on: ubuntu-latest
     steps:
       - name: Install Node

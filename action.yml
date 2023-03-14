@@ -1,5 +1,5 @@
-name: 'Deploy AWS'
-description: 'Deploy AWS'
+name: 'Terraform Commands Action'
+description: 'Action that supresses the Terraform output and returns the exit code of the Terraform command'
 inputs:
   terraform-cmd:
     required: false
