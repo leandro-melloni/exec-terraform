@@ -1,5 +1,8 @@
 name: 'Terraform Commands Action'
 description: 'Action that supresses the Terraform output and returns the exit code of the Terraform command'
+branding:
+  icon: anchor
+  collor: green
 inputs:
   terraform-cmd:
     required: false
