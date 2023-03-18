@@ -14,7 +14,6 @@ inputs:
     description: 'The Terraform arguments to pass to the command (e.g. "-var-file=terraform.tfvars")'
   terrarform-init-args:
     required: false
-    default: '-input=false'
     description: 'The Terraform arguments to pass to the init command (e.g. "-input=false")'
   
 runs:
