@@ -2538,8 +2538,9 @@ async function invokeTerraformInit(terrarformInitArgs) {
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
   }catch (err) {
-    Object(core.setFailed)(err.message);
-    Object(core.error)(err.stderr);
+    resultInit = err;
+    Object(core.setFailed)(resultInit.message);
+    Object(core.error)(resultInit.stderr);
   }
   return resultInit;
 }
