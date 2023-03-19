@@ -2,7 +2,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 import * as core from '@actions/core';
 
-async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
+export async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
   try {
     let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
     console.log(stdout);
@@ -21,7 +21,3 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
       throw new Error(err);
   }
 }
-
-module.exports = {
-  invokeTerraform
-};

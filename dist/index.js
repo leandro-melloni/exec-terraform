@@ -2500,7 +2500,7 @@ module.exports = require("util");
 /***/ }),
 
 /***/ 680:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
@@ -2528,7 +2528,6 @@ async function getInputs() {
     }
 }
 // CONCATENATED MODULE: ./src/modules/terraform.js
-/* module decorator */ module = __webpack_require__.hmd(module);
 const util = __webpack_require__(669);
 const exec = util.promisify(__webpack_require__(129).exec);
 
@@ -2552,11 +2551,6 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
       throw new Error(err);
   }
 }
-
-module.exports = {
-  invokeTerraform
-};
-
 // CONCATENATED MODULE: ./src/index.js
 
 
@@ -2569,7 +2563,7 @@ async function run() {
       terraformCMD, terraformArgs, terrarformInitArgs, 
     } = await getInputs();
 
-    await /* Cannot get final name for export "invokeTerraform" in "./src/modules/terraform.js" (known exports: , known reexports: ) */ undefined(terraformCMD, terraformArgs, terrarformInitArgs);
+    await invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs);
     
   }
   catch (error) {
@@ -2974,29 +2968,6 @@ exports.default = _default;
 /******/ 				function getModuleExports() { return module; };
 /******/ 			__webpack_require__.d(getter, 'a', getter);
 /******/ 			return getter;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/harmony module decorator */
-/******/ 	!function() {
-/******/ 		__webpack_require__.hmd = function(module) {
-/******/ 			module = Object.create(module);
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'loaded', {
-/******/ 				enumerable: true,
-/******/ 				get: function () { return module.l; }
-/******/ 			});
-/******/ 			Object.defineProperty(module, 'id', {
-/******/ 				enumerable: true,
-/******/ 				get: function () { return module.i; }
-/******/ 			});
-/******/ 			Object.defineProperty(module, 'exports', {
-/******/ 				enumerable: true,
-/******/ 				set: function () {
-/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
-/******/ 				}
-/******/ 			});
-/******/ 			return module;
 /******/ 		};
 /******/ 	}();
 /******/ 	
