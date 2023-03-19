@@ -14,12 +14,7 @@ async function run() {
   
   resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
   core.notice(resultInit.stdout);
-  //if (resultInit.stderr != null) {
-  //  core.error(resultInit.stderr);
-  //  core.ExitCode.Failure;
-  //} else {
-  //  core.notice(resultInit.stdout);
-  //}
+  core.debug(resultInit.stderr);
 
   resultCMD = await terraform.invokeTerraform(terraformCMD, terraformArgs);
   if (resultCMD.stderr != null) {
