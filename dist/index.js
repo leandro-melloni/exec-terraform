@@ -2562,7 +2562,6 @@ async function run() {
     resultInit = await invokeTerraformInit(terrarformInitArgs);
     Object(core.notice)(resultInit.stdout);
   } catch (error) {
-    Object(core.error)(resultInit.stderr);
     Object(core.setFailed)(error.message);
   }
 

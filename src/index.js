@@ -16,7 +16,6 @@ async function run() {
     resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
     core.notice(resultInit.stdout);
   } catch (error) {
-    core.error(resultInit.stderr);
     core.setFailed(error.message);
   }
 
