@@ -7,6 +7,7 @@ export async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terr
   core.info('Invoke Terraform Init');
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    core.info(resultInit.stdout);
     await invokeTerraform(terraformCMD, terraformArgs);
   }catch (err) {
     resultInit = err;
