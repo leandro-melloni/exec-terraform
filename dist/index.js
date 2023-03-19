@@ -2538,6 +2538,7 @@ async function invokeTerraformInit(terrarformInitArgs) {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
   }catch (err) {
     resultInit = err;
+    Object(core.setFailed)(resultInit.stderr);
   }
   return resultInit;
 }
@@ -2549,6 +2550,7 @@ async function invokeTerraform(terraformCMD, terraformArgs) {
 
   } catch (err) {
     resultCMD = err;
+    Object(core.setFailed)(resultCMD.stderr);
   }
   return resultCMD;
 }
