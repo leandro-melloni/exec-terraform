@@ -2573,6 +2573,7 @@ async function run() {
   Object(core.info)(resultInit);
   if (resultInit.stderr != null) {
     Object(core.error)(resultInit.stderr);
+    core.ExitCode.Failure;
   } else {
     Object(core.notice)(resultInit.stdout);
   }

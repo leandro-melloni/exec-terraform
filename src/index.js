@@ -16,6 +16,7 @@ async function run() {
   core.info(resultInit);
   if (resultInit.stderr != null) {
     core.error(resultInit.stderr);
+    core.ExitCode.Failure;
   } else {
     core.notice(resultInit.stdout);
   }
