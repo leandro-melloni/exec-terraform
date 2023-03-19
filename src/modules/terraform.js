@@ -3,10 +3,9 @@ const exec = util.promisify(require('child_process').exec);
 import * as core from '@actions/core';
 
 export async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
-  //try {
-    let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
-    console.log('stdout: ' + stdout);
-    console.error('stderr: ' + stderr);
+  let result;
+  try {
+    result = await exec('terraform init' + ' ' + terrarformInitArgs);
     
     stdout, stderr = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
     console.log(stdout);
@@ -14,10 +13,8 @@ export async function invokeTerraform(terraformCMD, terraformArgs, terrarformIni
       console.log(stderr);
     }
       
-    return stdout;
-  //}catch (err) {
-  //    console.error('Error invoking Terraform');
-  //    core.setFailed(err.message);
-  //    throw new Error(err);
-  //}
+  }catch (err) {
+      result = err;
+  }
+  return result;
 }
