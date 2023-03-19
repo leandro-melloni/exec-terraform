@@ -7,19 +7,9 @@ async function run() {
   const { 
     terraformCMD, terraformArgs, terrarformInitArgs, 
   } = await inputs.getInputs();
-
-  let resultInit;
-  let resultCMD;
-
   
-  resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
+  await terraform.invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs);
   
-  resultCMD = await terraform.invokeTerraform(terraformCMD, terraformArgs);
-  if (resultCMD.stderr != null) {
-    core.error(resultCMD.stderr);
-  } else {
-    core.notice(resultCMD.stdout)
-  }
 }
 
 run();

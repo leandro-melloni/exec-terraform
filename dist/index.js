@@ -2532,11 +2532,12 @@ const util = __webpack_require__(669);
 const exec = util.promisify(__webpack_require__(129).exec);
 
 
-async function invokeTerraformInit(terrarformInitArgs) {
+async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs) {
   let resultInit;
   Object(core.info)('Invoke Terraform Init');
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    await invokeTerraform(terraformCMD, terraformArgs);
   }catch (err) {
     resultInit = err;
     Object(core.setFailed)(resultInit.message);
@@ -2568,19 +2569,9 @@ async function run() {
   const { 
     terraformCMD, terraformArgs, terrarformInitArgs, 
   } = await getInputs();
-
-  let resultInit;
-  let resultCMD;
-
   
-  resultInit = await invokeTerraformInit(terrarformInitArgs);
+  await invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs);
   
-  resultCMD = await invokeTerraform(terraformCMD, terraformArgs);
-  if (resultCMD.stderr != null) {
-    Object(core.error)(resultCMD.stderr);
-  } else {
-    Object(core.notice)(resultCMD.stdout)
-  }
 }
 
 run();
