@@ -1,25 +1,32 @@
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+import * as core from '@actions/core';
 
-async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
+export async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs) {
+  let resultInit;
+  core.info('Invoke Terraform Init');
   try {
-    let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
-    stdout, stderr = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
-      
-    return stdout;
+    resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    await invokeTerraform(terraformCMD, terraformArgs);
   }catch (err) {
-      throw new Error(err);
+    resultInit = err;
+    core.setFailed(resultInit.message);
   }
+
+  core.info(resultInit.stdout);
+  return resultInit;
 }
 
-module.exports = {
-  invokeTerraform
-};
+export async function invokeTerraform(terraformCMD, terraformArgs) {
+  core.info('Invoke Terraform ' + terraformCMD);
+  let resultCMD;
+  try {
+    resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+
+  } catch (err) {
+    resultCMD = err;
+    core.setFailed(resultCMD.stderr);
+  }
+  core.info(resultCMD.stdout);
+  return resultCMD;
+}

@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(917);
+/******/ 		return __webpack_require__(680);
 /******/ 	};
 /******/ 	// initialize runtime
 /******/ 	runtime(__webpack_require__);
@@ -2181,38 +2181,6 @@ module.exports = require("http");
 
 /***/ }),
 
-/***/ 612:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const util = __webpack_require__(669);
-const exec = util.promisify(__webpack_require__(129).exec);
-
-async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
-  try {
-    let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
-    stdout, stderr = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
-      
-    return stdout;
-  }catch (err) {
-      throw new Error(err);
-  }
-}
-
-module.exports = {
-  invokeTerraform
-};
-
-
-/***/ }),
-
 /***/ 614:
 /***/ (function(module) {
 
@@ -2528,6 +2496,87 @@ exports.summary = _summary;
 /***/ (function(module) {
 
 module.exports = require("util");
+
+/***/ }),
+
+/***/ 680:
+/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __webpack_require__(470);
+
+// CONCATENATED MODULE: ./src/modules/inputs.js
+
+
+async function getInputs() {
+    try {
+        // Get inputs
+        const terraformCMD = Object(core.getInput)('terraform-cmd', { required: false }).toLowerCase();
+        const terraformArgs = Object(core.getInput)('terraform-args', {required: false }).toLowerCase();
+        const terrarformInitArgs = Object(core.getInput)('terrarform-init-args', {required: false }).toLowerCase();
+
+        return {
+            terraformCMD,
+            terraformArgs,
+            terrarformInitArgs
+        };
+    } catch (error) {
+        Object(core.setFailed)(error.message);
+    }
+}
+// CONCATENATED MODULE: ./src/modules/terraform.js
+const util = __webpack_require__(669);
+const exec = util.promisify(__webpack_require__(129).exec);
+
+
+async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs) {
+  let resultInit;
+  Object(core.info)('Invoke Terraform Init');
+  try {
+    resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    await invokeTerraform(terraformCMD, terraformArgs);
+  }catch (err) {
+    resultInit = err;
+    Object(core.setFailed)(resultInit.message);
+  }
+
+  Object(core.info)(resultInit.stdout);
+  return resultInit;
+}
+
+async function invokeTerraform(terraformCMD, terraformArgs) {
+  Object(core.info)('Invoke Terraform ' + terraformCMD);
+  let resultCMD;
+  try {
+    resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+
+  } catch (err) {
+    resultCMD = err;
+    Object(core.setFailed)(resultCMD.stderr);
+  }
+  Object(core.info)(resultCMD.stdout);
+  return resultCMD;
+}
+// CONCATENATED MODULE: ./src/index.js
+
+
+
+
+async function run() {
+  // Get inputs
+  const { 
+    terraformCMD, terraformArgs, terrarformInitArgs, 
+  } = await getInputs();
+  
+  await invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformArgs);
+  
+}
+
+run();
+
 
 /***/ }),
 
@@ -2866,62 +2915,6 @@ function v1(options, buf, offset) {
 
 var _default = v1;
 exports.default = _default;
-
-/***/ }),
-
-/***/ 917:
-/***/ (function(__unusedmodule, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __webpack_require__(470);
-
-// CONCATENATED MODULE: ./src/modules/inputs.js
-
-
-async function getInputs() {
-    try {
-        // Get inputs
-        const terraformCMD = Object(core.getInput)('terraform-cmd', { required: false }).toLowerCase();
-        const terraformArgs = Object(core.getInput)('terraform-args', {required: false }).toLowerCase();
-        const terrarformInitArgs = Object(core.getInput)('terrarform-init-args', {required: false }).toLowerCase();
-
-        return {
-            terraformCMD,
-            terraformArgs,
-            terrarformInitArgs
-        };
-    } catch (error) {
-        Object(core.setFailed)(error.message);
-    }
-}
-// EXTERNAL MODULE: ./src/modules/terraform.js
-var terraform = __webpack_require__(612);
-
-// CONCATENATED MODULE: ./src/index.js
-
-
-
-
-async function run() {
-  try {
-    // Get inputs
-    const { 
-      terraformCMD, terraformArgs, terrarformInitArgs, 
-    } = await getInputs();
-
-    await Object(terraform.invokeTerraform)(terraformCMD, terraformArgs, terrarformInitArgs);
-    
-  }
-  catch (error) {
-    Object(core.setFailed)(error.message);
-  }
-}
-
-run();
-
 
 /***/ })
 
