@@ -2548,7 +2548,6 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
       
     return stdout;
   }catch (err) {
-      console.log('Error invoking Terraform');
       Object(core.setFailed)(err.message);
       throw new Error(err);
   }
