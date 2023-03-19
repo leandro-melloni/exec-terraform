@@ -15,11 +15,7 @@ export async function invokeTerraformInit(terrarformInitArgs) {
 
 export async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
-    sresult = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
+    result = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
   } catch (err) {
     result = err;
     core.setFailed(result.message);

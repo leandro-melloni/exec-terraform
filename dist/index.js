@@ -2545,11 +2545,7 @@ async function invokeTerraformInit(terrarformInitArgs) {
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
   try {
-    sresult = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
-    console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
+    result = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
   } catch (err) {
     result = err;
     Object(core.setFailed)(result.message);
@@ -2568,14 +2564,14 @@ async function run() {
   } = await getInputs();
 
   let result;
-  
+
   console.log('Invoke Terraform Init');
   result = await invokeTerraformInit(terrarformInitArgs);
-  console.log(result)
+  Object(core.notice)(result);
 
   console.log('Invoke Terraform ' + terraformCMD);
   result = await invokeTerraform(terraformCMD, terraformArgs);
-  console.log(result)
+  Object(core.notice)(result)
 }
 
 run();
