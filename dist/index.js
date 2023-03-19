@@ -2534,13 +2534,22 @@ const exec = util.promisify(__webpack_require__(129).exec);
 
 async function invokeTerraformInit(terrarformInitArgs) {
   let resultInit;
-  resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+  try {
+    resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+  }catch (err) {
+    resultInit = err;
+  }
   return resultInit;
 }
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
   let resultCMD;
-  resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+  try {
+    resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+
+  } catch (err) {
+    resultCMD = err;
+  }
   return resultCMD;
 }
 // CONCATENATED MODULE: ./src/index.js

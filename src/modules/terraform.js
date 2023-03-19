@@ -4,12 +4,21 @@ import * as core from '@actions/core';
 
 export async function invokeTerraformInit(terrarformInitArgs) {
   let resultInit;
-  resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+  try {
+    resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+  }catch (err) {
+    resultInit = err;
+  }
   return resultInit;
 }
 
 export async function invokeTerraform(terraformCMD, terraformArgs) {
   let resultCMD;
-  resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+  try {
+    resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+
+  } catch (err) {
+    resultCMD = err;
+  }
   return resultCMD;
 }
