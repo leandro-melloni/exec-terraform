@@ -12,7 +12,7 @@ async function run() {
 
   console.log('Invoke Terraform Init');
   result = await terraform.invokeTerraformInit(terrarformInitArgs);
-  core.notice(result);
+  core.notice(result.stdout);
 
   console.log('Invoke Terraform ' + terraformCMD);
   result = await terraform.invokeTerraform(terraformCMD, terraformArgs);
