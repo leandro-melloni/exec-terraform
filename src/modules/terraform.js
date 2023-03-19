@@ -6,20 +6,22 @@ export async function invokeTerraformInit(terrarformInitArgs) {
   let resultInit;
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    return resultInit;
   }catch (err) {
       resultInit = err;
       core.setFailed(resultInit.message);
   }
-  return resultInit;
 }
 
 export async function invokeTerraform(terraformCMD, terraformArgs) {
   let resultCMD;
   try {
     resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+    return resultCMD;
   } catch (err) {
     resultCMD = err;
     core.setFailed(resultCMD.message);
+    throw new Error(resultCMD.message);
   }
-  return resultCMD;
+
 }

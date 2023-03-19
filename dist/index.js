@@ -2536,22 +2536,24 @@ async function invokeTerraformInit(terrarformInitArgs) {
   let resultInit;
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    return resultInit;
   }catch (err) {
       resultInit = err;
       Object(core.setFailed)(resultInit.message);
   }
-  return resultInit;
 }
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
   let resultCMD;
   try {
     resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+    return resultCMD;
   } catch (err) {
     resultCMD = err;
     Object(core.setFailed)(resultCMD.message);
+    throw new Error(resultCMD.message);
   }
-  return resultCMD;
+
 }
 // CONCATENATED MODULE: ./src/index.js
 
