@@ -2570,6 +2570,7 @@ async function run() {
 
   Object(core.info)('Invoke Terraform Init');
   resultInit = await invokeTerraformInit(terrarformInitArgs);
+  Object(core.info)(resultInit);
   if (resultInit.stderr != null) {
     Object(core.error)(resultInit.stderr);
   } else {

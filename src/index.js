@@ -13,6 +13,7 @@ async function run() {
 
   core.info('Invoke Terraform Init');
   resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
+  core.info(resultInit);
   if (resultInit.stderr != null) {
     core.error(resultInit.stderr);
   } else {
