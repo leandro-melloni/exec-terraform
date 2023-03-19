@@ -11,9 +11,15 @@ async function run() {
   let resultInit;
   let resultCMD;
 
-  core.info('Invoke Terraform Init');
-  resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
-  core.notice(resultInit.stdout);
+  try {
+    core.info('Invoke Terraform Init');
+    resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
+    core.notice(resultInit.stdout);
+  } catch (error) {
+    core.error(resultInit.stderr);
+    core.setFailed(error.message);
+  }
+
 
   core.info('Invoke Terraform ' + terraformCMD);
   resultCMD = await terraform.invokeTerraform(terraformCMD, terraformArgs);
