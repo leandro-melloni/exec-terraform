@@ -17,6 +17,7 @@ export async function invokeTerraform(terraformCMD, terraformArgs, terrarformIni
       
     return stdout;
   }catch (err) {
+      console.error('Error invoking Terraform');
       core.setFailed(err.message);
       throw new Error(err);
   }
