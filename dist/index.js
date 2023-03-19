@@ -2527,21 +2527,14 @@ async function getInputs() {
         Object(core.setFailed)(error.message);
     }
 }
-// EXTERNAL MODULE: external "util"
-var external_util_ = __webpack_require__(669);
-
-// EXTERNAL MODULE: external "child_process"
-var external_child_process_ = __webpack_require__(129);
-
 // CONCATENATED MODULE: ./src/modules/terraform.js
 /* module decorator */ module = __webpack_require__.hmd(module);
-
-
+const util = __webpack_require__(669);
+const exec = util.promisify(__webpack_require__(129).exec);
 
 
 async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
   try {
-    const exec = Object(external_util_.promisify)(external_child_process_.exec);
     let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
     console.log(stdout);
     if (stderr != null) {
