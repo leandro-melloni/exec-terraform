@@ -7,10 +7,12 @@ export async function invokeTerraformInit(terrarformInitArgs) {
   core.info('Invoke Terraform Init');
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
+    core.notice(resultInit.stdout);
+    core.notice(resultInit.stderr);
   }catch (err) {
     resultInit = err;
-    core.setFailed(resultInit.message);
     core.error(resultInit.stderr);
+    core.setFailed(resultInit.message);
   }
   return resultInit;
 }
