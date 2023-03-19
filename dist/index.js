@@ -2543,7 +2543,7 @@ async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformAr
     Object(core.setFailed)(resultInit.message);
   }
 
-  Object(core.info)(resultInit);
+  Object(core.info)(resultInit.stdout);
   return resultInit;
 }
 

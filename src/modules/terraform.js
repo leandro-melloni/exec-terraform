@@ -13,7 +13,7 @@ export async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terr
     core.setFailed(resultInit.message);
   }
 
-  core.info(resultInit);
+  core.info(resultInit.stdout);
   return resultInit;
 }
 
