@@ -2533,7 +2533,7 @@ const exec = util.promisify(__webpack_require__(129).exec);
 
 
 async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) {
-  try {
+  //try {
     let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
     console.log(stdout);
     if (stderr != null) {
@@ -2546,11 +2546,11 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
     }
       
     return stdout;
-  }catch (err) {
-      console.error('Error invoking Terraform');
-      Object(core.setFailed)(err.message);
-      throw new Error(err);
-  }
+  //}catch (err) {
+  //    console.error('Error invoking Terraform');
+  //    core.setFailed(err.message);
+  //    throw new Error(err);
+  //}
 }
 // CONCATENATED MODULE: ./src/index.js
 
