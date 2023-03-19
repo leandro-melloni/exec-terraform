@@ -2191,14 +2191,10 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
   try {
     let { stdout,stderr } = await exec('terraform init' + ' ' + terrarformInitArgs);
     console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
+    console.log(stderr);
     stdout, stderr = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
     console.log(stdout);
-    if (stderr != null) {
-      console.log(stderr);
-    }
+    console.log(stderr);
       
     return stdout;
   }catch (err) {
