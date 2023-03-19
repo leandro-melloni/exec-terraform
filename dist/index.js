@@ -2542,7 +2542,8 @@ async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terraformAr
     resultInit = err;
     Object(core.setFailed)(resultInit.message);
   }
-  Object(core.info)(resultInit.stdout);
+
+  Object(core.info)(Object(core.saveState)('terraformInit', resultInit.stdout));
   return resultInit;
 }
 

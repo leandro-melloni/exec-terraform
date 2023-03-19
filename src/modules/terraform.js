@@ -12,7 +12,8 @@ export async function invokeTerraformInit(terrarformInitArgs, terraformCMD, terr
     resultInit = err;
     core.setFailed(resultInit.message);
   }
-  core.info(resultInit.stdout);
+
+  core.info(core.saveState('terraformInit', resultInit.stdout));
   return resultInit;
 }
 
