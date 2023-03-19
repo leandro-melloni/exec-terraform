@@ -4,6 +4,7 @@ import * as core from '@actions/core';
 
 export async function invokeTerraformInit(terrarformInitArgs) {
   let resultInit;
+  core.info('Invoke Terraform Init');
   try {
     resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
   }catch (err) {
@@ -14,6 +15,7 @@ export async function invokeTerraformInit(terrarformInitArgs) {
 }
 
 export async function invokeTerraform(terraformCMD, terraformArgs) {
+  core.info('Invoke Terraform ' + terraformCMD);
   let resultCMD;
   try {
     resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
