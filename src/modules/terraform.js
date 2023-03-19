@@ -3,23 +3,23 @@ const exec = util.promisify(require('child_process').exec);
 import * as core from '@actions/core';
 
 export async function invokeTerraformInit(terrarformInitArgs) {
-  let result;
+  let resultInit;
   try {
-    result = await exec('terraform init' + ' ' + terrarformInitArgs);
+    resultInit = await exec('terraform init' + ' ' + terrarformInitArgs);
   }catch (err) {
-      result = err;
-      core.setFailed(result.message);
+      resultInit = err;
+      core.setFailed(resultInit.message);
   }
-  return result;
+  return resultInit;
 }
 
 export async function invokeTerraform(terraformCMD, terraformArgs) {
-  let result;
+  let resultCMD;
   try {
-    result = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
+    resultCMD = await exec('terraform ' + terraformCMD + ' ' + terraformArgs);
   } catch (err) {
-    result = err;
-    core.setFailed(result.message);
+    resultCMD = err;
+    core.setFailed(resultCMD.message);
   }
-  return result;
+  return resultCMD;
 }
