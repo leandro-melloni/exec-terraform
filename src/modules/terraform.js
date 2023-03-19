@@ -12,7 +12,7 @@ export async function invokeTerraformInit(terrarformInitArgs) {
     core.error(resultInit.stderr);
     core.setFailed(resultInit.message);
   }
-  core.info(resultInit.stdout);
+  core.saveState(resultInit.stdout);
   return resultInit;
 }
 
