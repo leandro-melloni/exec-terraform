@@ -2545,6 +2545,7 @@ async function invokeTerraform(terraformCMD, terraformArgs, terrarformInitArgs) 
       
   }catch (err) {
       result = err;
+      Object(core.setFailed)(result.message);
   }
   return result;
 }
