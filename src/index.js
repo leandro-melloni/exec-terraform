@@ -11,18 +11,21 @@ async function run() {
   let resultInit;
   let resultCMD;
 
-  try {
-    core.info('Invoke Terraform Init');
-    resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
+  core.info('Invoke Terraform Init');
+  resultInit = await terraform.invokeTerraformInit(terrarformInitArgs);
+  if (resultInit.stderr != null) {
+    core.error(resultInit.stderr);
+  } else {
     core.notice(resultInit.stdout);
-  } catch (error) {
-    core.setFailed(error.message);
   }
-
 
   core.info('Invoke Terraform ' + terraformCMD);
   resultCMD = await terraform.invokeTerraform(terraformCMD, terraformArgs);
-  core.notice(resultCMD.stdout)
+  if (resultCMD.stderr != null) {
+    core.error(resultCMD.stderr);
+  } else {
+    core.notice(resultCMD.stdout)
+  }
 }
 
 run();
