@@ -2541,7 +2541,7 @@ async function invokeTerraformInit(terrarformInitArgs) {
     Object(core.setFailed)(err.message);
     Object(core.error)(err.stderr);
   }
-  return resultInit.stdout;
+  return resultInit;
 }
 
 async function invokeTerraform(terraformCMD, terraformArgs) {
@@ -2573,6 +2573,7 @@ async function run() {
   
   resultInit = await invokeTerraformInit(terrarformInitArgs);
   Object(core.notice)(resultInit.stdout);
+  Object(core.notice)(resultInit.stderr);
   
   resultCMD = await invokeTerraform(terraformCMD, terraformArgs);
   if (resultCMD.stderr != null) {
